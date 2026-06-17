@@ -42,6 +42,10 @@ CI pipeline. On **Windows**, run it from a **WSL2** shell (Docker Desktop alread
 WSL2; enable WSL integration for your distro). Git Bash is *not* supported (it mangles paths
 before they reach `docker`). The container runners are Linux/bash regardless of host.
 
+Compose host paths are anchored at **`${SANDBOX_ROOT}`** (the repo root), which the dispatcher
+exports — so resolution is unambiguous and CWD-independent. A direct `docker compose -f …` must
+export `SANDBOX_ROOT` first.
+
 ## Architecture
 
 ### Two isolated compositions, not one shared sandbox

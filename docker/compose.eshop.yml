@@ -3,6 +3,9 @@
 #
 # Lifecycle is driven by ../sandbox.sh: `up` starts services, `run` exec's the runner
 # into eshop-app, `reset` recreates with fresh volumes, `down` tears everything down.
+#
+# Host paths are anchored at ${SANDBOX_ROOT} (the repo root). Invoke via sandbox.sh, which
+# exports SANDBOX_ROOT; for a direct `docker compose -f …`, export SANDBOX_ROOT first.
 
 name: eshop-sandbox
 
@@ -28,8 +31,8 @@ services:
 
   eshop-app:
     build:
-      context: ../.upstream/eshop            # pinned upstream checkout (scripts/pins.env)
-      dockerfile: ../../docker/eshop/Dockerfile
+      context: ${SANDBOX_ROOT}/.upstream/eshop          # pinned upstream checkout (scripts/pins.env)
+      dockerfile: ${SANDBOX_ROOT}/docker/eshop/Dockerfile
     image: eshop-sandbox-base:latest
     # Persistent workspace (idles via image CMD = sleep infinity). Source is the bind-mounted
     # host clone at /work (rw): the agent's edits land directly in the host repo, so the harness
@@ -49,12 +52,12 @@ services:
       RUN_ID: "${RUN_ID:-local}"
     volumes:
       # Host working copy (a real git checkout), mounted rw — agent edits land here directly.
-      - ../.upstream/eshop:/work
+      - ${SANDBOX_ROOT}/.upstream/eshop:/work
       # Runner is bind-mounted (not baked) so it is editable without an image rebuild.
-      - ./eshop/run-checks.sh:/usr/local/bin/run-checks:ro
-      - ../scripts/lib/results.sh:/usr/local/bin/results.sh:ro
+      - ${SANDBOX_ROOT}/docker/eshop/run-checks.sh:/usr/local/bin/run-checks:ro
+      - ${SANDBOX_ROOT}/scripts/lib/results.sh:/usr/local/bin/results.sh:ro
       # Host-accessible results (output-capture spec): survives teardown.
-      - ../results:/results
+      - ${SANDBOX_ROOT}/results:/results
     ports:
       - "127.0.0.1:${ESHOP_HTTP_PORT:-8080}:8080"   # app HTTP, localhost only
     mem_limit: 4g                            # .NET build/test headroom

@@ -23,6 +23,9 @@
 set -euo pipefail
 ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 COMPOSE_DIR="$ROOT/docker"
+# Compose files reference host paths as ${SANDBOX_ROOT}/… — anchor them at the repo root so
+# resolution is unambiguous and CWD-independent. (Direct `docker compose` use must export this.)
+export SANDBOX_ROOT="$ROOT"
 
 compose_file() {
   local f="$COMPOSE_DIR/compose.$1.yml"

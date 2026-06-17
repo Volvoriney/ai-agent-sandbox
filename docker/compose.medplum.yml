@@ -4,6 +4,9 @@
 # The server container idles (sleep infinity); sandbox.sh exec's the runner into it,
 # which builds (cached in the image), starts the server (auto-runs migrations), health-checks
 # /healthcheck, and runs the @medplum/server jest suite.
+#
+# Host paths are anchored at ${SANDBOX_ROOT} (the repo root). Invoke via sandbox.sh, which
+# exports SANDBOX_ROOT; for a direct `docker compose -f …`, export SANDBOX_ROOT first.
 
 name: medplum-sandbox
 
@@ -15,7 +18,7 @@ services:
       POSTGRES_PASSWORD: medplum
     volumes:
       # init_test.sql creates the medplum_test database the server jest suite needs.
-      - ../.upstream/medplum/postgres:/docker-entrypoint-initdb.d:ro
+      - ${SANDBOX_ROOT}/.upstream/medplum/postgres:/docker-entrypoint-initdb.d:ro
     # DB port NOT published — internal network only (isolation spec).
     healthcheck:
       test: ["CMD-SHELL", "pg_isready -U medplum -d medplum"]
@@ -44,8 +47,8 @@ services:
 
   medplum-server:
     build:
-      context: ../.upstream/medplum
-      dockerfile: ../../docker/medplum/Dockerfile
+      context: ${SANDBOX_ROOT}/.upstream/medplum
+      dockerfile: ${SANDBOX_ROOT}/docker/medplum/Dockerfile
     image: medplum-sandbox-base:latest
     # Persistent workspace: the container idles (image CMD = sleep infinity) so the agent/
     # harness can exec into it repeatedly — build, test, poke around — across one task.
@@ -60,16 +63,16 @@ services:
       RUN_ID: "${RUN_ID:-local}"
     volumes:
       # Host working copy (a real git checkout), mounted rw — agent edits land here directly.
-      - ../.upstream/medplum:/usr/src/medplum
+      - ${SANDBOX_ROOT}/.upstream/medplum:/usr/src/medplum
       # Anonymous volume preserves the image's pre-installed node_modules under the mount
       # (the bind-mount would otherwise shadow it → npm ci on every run). npm workspaces hoist
       # deps to this root node_modules; turbo rebuilds dist on the mounted source.
       - /usr/src/medplum/node_modules
-      - ./medplum/run-checks.sh:/usr/local/bin/run-checks:ro
-      - ./medplum/medplum.sandbox.config.json:/config/medplum.config.json:ro
-      - ./medplum/medplum.testdb.config.json:/config/medplum.testdb.config.json:ro
-      - ../scripts/lib/results.sh:/usr/local/bin/results.sh:ro
-      - ../results:/results
+      - ${SANDBOX_ROOT}/docker/medplum/run-checks.sh:/usr/local/bin/run-checks:ro
+      - ${SANDBOX_ROOT}/docker/medplum/medplum.sandbox.config.json:/config/medplum.config.json:ro
+      - ${SANDBOX_ROOT}/docker/medplum/medplum.testdb.config.json:/config/medplum.testdb.config.json:ro
+      - ${SANDBOX_ROOT}/scripts/lib/results.sh:/usr/local/bin/results.sh:ro
+      - ${SANDBOX_ROOT}/results:/results
     ports:
       - "127.0.0.1:${MEDPLUM_HTTP_PORT:-8103}:8103"   # API, localhost only
     mem_limit: 4g                            # Turborepo build + server are memory-hungry
