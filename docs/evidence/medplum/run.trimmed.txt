@@ -1,0 +1,17 @@
+[sandbox] project=medplum run_id=20260617-012037 (logs -> stdout, artifacts -> /results/20260617-012037)
+[sandbox] ===== build: turbo build @medplum/server =====
+[sandbox] ----- build: passed (91s, exit 0) -----
+[sandbox] ===== start: wait for server ready (auto-migrate on startup) =====
+[start] server is serving on :8103
+[sandbox] ----- start: passed (95s, exit 0) -----
+[sandbox] ===== healthcheck: HTTP GET /healthcheck returns 2xx =====
+[healthcheck] HTTP 200
+[sandbox] ----- healthcheck: passed (0s, exit 0) -----
+[sandbox] ===== migrate-testdb: migrate medplum_test schema =====
+[migrate-testdb] medplum_test migrated
+[sandbox] ----- migrate-testdb: passed (102s, exit 0) -----
+[sandbox] ===== test: jest @medplum/server (scoped) =====
+Test Suites: 1 passed, 1 total
+Tests:       4 passed, 4 total
+[sandbox] ----- test: passed (41s, exit 0) -----
+[sandbox] wrote /results/20260617-012037/results.json (overall=passed)

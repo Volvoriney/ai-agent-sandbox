@@ -1,0 +1,8 @@
+{
+  "schemaVersion": "1.0",
+  "project": "medplum",
+  "runId": "20260614-011511",
+  "overall": "failed",
+  "testScope":"server package, healthcheck suite only (full monorepo suite cut for time budget — spec project-medplum)",
+  "stages": [{"name":"build","label":"turbo build @medplum/server","status":"passed","exitCode":0,"durationSec":39,"log":"build.log"},{"name":"start","label":"wait for server ready (auto-migrate on startup)","status":"passed","exitCode":0,"durationSec":96,"log":"start.log"},{"name":"healthcheck","label":"HTTP GET /healthcheck returns 2xx","status":"passed","exitCode":0,"durationSec":0,"log":"healthcheck.log"},{"name":"test","label":"jest @medplum/server (scoped)","status":"failed","exitCode":1,"durationSec":10,"log":"test.log"}]
+}

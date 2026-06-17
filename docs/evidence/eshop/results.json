@@ -1,0 +1,7 @@
+{
+  "schemaVersion": "1.0",
+  "project": "eshop",
+  "runId": "20260617-005818",
+  "overall": "passed",
+  "stages": [{"name":"build","label":"dotnet build (Web + test projects)","status":"passed","exitCode":0,"durationSec":1084},{"name":"start","label":"wait for web app ready (EF migrate + seed on startup)","status":"passed","exitCode":0,"durationSec":11},{"name":"healthcheck","label":"HTTP GET / returns 2xx/3xx","status":"passed","exitCode":0,"durationSec":0},{"name":"test","label":"dotnet test (unit + functional + integration)","status":"passed","exitCode":0,"durationSec":12}]
+}

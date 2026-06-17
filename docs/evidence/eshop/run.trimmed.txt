@@ -1,0 +1,22 @@
+[sandbox] project=eshop run_id=20260617-005818 (logs -> stdout, artifacts -> /results/20260617-005818)
+[sandbox] ===== build: dotnet build (Web + test projects) =====
+Build succeeded.
+Build succeeded.
+Build succeeded.
+Build succeeded.
+[sandbox] ----- build: passed (1084s, exit 0) -----
+[sandbox] ===== start: wait for web app ready (EF migrate + seed on startup) =====
+[start] app is serving on :8080
+[sandbox] ----- start: passed (11s, exit 0) -----
+[sandbox] ===== healthcheck: HTTP GET / returns 2xx/3xx =====
+[healthcheck] HTTP 200
+[sandbox] ----- healthcheck: passed (0s, exit 0) -----
+[sandbox] ===== test: dotnet test (unit + functional + integration) =====
+[test] === UnitTests ===
+Passed!  - Failed:     0, Passed:    44, Skipped:     0, Total:    44, Duration: 144 ms - UnitTests.dll (net10.0)
+[test] === FunctionalTests ===
+Passed!  - Failed:     0, Passed:    12, Skipped:     0, Total:    12, Duration: 4 s - FunctionalTests.dll (net10.0)
+[test] === IntegrationTests ===
+Passed!  - Failed:     0, Passed:     3, Skipped:     0, Total:     3, Duration: 807 ms - IntegrationTests.dll (net10.0)
+[sandbox] ----- test: passed (12s, exit 0) -----
+[sandbox] wrote /results/20260617-005818/results.json (overall=passed)

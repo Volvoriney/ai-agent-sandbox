@@ -198,6 +198,12 @@ that agents run inside. Notes for the discussion the brief asks for:
 semantics — are precisely where intervention was needed. Streaming everything to stdout +
 the `results.json` verdict made every one of these debuggable from `results/<run-id>/`.
 
+## Proof it works
+Real artifacts from successful runs (both projects `overall: passed`) are in
+**[docs/evidence/](docs/evidence/)** — `results.json`, native test reports (eShop 59 tests,
+Medplum jest 4), the live `/healthcheck` body, and failure-path examples (synthesized
+`"crashed"` envelope + `skipped` stages). Reproduce: `./sandbox.sh run eshop` / `run medplum`.
+
 ## Repository layout
 ```
 sandbox.sh                   dispatcher (up | run | exec | shell | reset | down | setup) — Linux/macOS/WSL

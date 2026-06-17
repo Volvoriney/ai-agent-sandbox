@@ -1,0 +1,50 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TestRun id="87c7dc09-70b1-4e1c-8de1-58edc73b6536" name="@3fbe4321a7f8 2026-06-17 08:16:46" xmlns="http://microsoft.com/schemas/VisualStudio/TeamTest/2010">
+  <Times creation="2026-06-17T08:16:46.5708536+00:00" queuing="2026-06-17T08:16:46.5708537+00:00" start="2026-06-17T08:16:44.6648583+00:00" finish="2026-06-17T08:16:46.6456632+00:00" />
+  <TestSettings name="default" id="7ea60547-b346-4459-803f-671a395e6290">
+    <Deployment runDeploymentRoot="_3fbe4321a7f8_2026-06-17_08_16_46" />
+  </TestSettings>
+  <Results>
+    <UnitTestResult executionId="321fa89c-51d1-46c2-90c4-e9d4d0344336" testId="2e5697be-fdc0-0e04-a7cf-e2f0096c1f2c" testName="Microsoft.eShopWeb.IntegrationTests.Repositories.BasketRepositoryTests.SetQuantities.RemoveEmptyQuantities" computerName="3fbe4321a7f8" duration="00:00:00.7984696" startTime="2026-06-17T08:16:45.7564493+00:00" endTime="2026-06-17T08:16:46.5642011+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="321fa89c-51d1-46c2-90c4-e9d4d0344336" />
+    <UnitTestResult executionId="bf68c5f7-1175-4c23-91ba-c031721abfec" testId="cfca6b51-d9ae-00e1-98fa-ba314f31388c" testName="Microsoft.eShopWeb.IntegrationTests.Repositories.OrderRepositoryTests.GetByIdWithItemsAsync.GetOrderAndItemsByOrderIdWhenMultipleOrdersPresent" computerName="3fbe4321a7f8" duration="00:00:00.7905934" startTime="2026-06-17T08:16:45.7564709+00:00" endTime="2026-06-17T08:16:46.5562436+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="bf68c5f7-1175-4c23-91ba-c031721abfec" />
+    <UnitTestResult executionId="ad0440ab-bb32-46cb-aab0-fc5379f2a09d" testId="20131588-092a-8968-560d-8b05cd65a86a" testName="Microsoft.eShopWeb.IntegrationTests.Repositories.OrderRepositoryTests.GetById.GetsExistingOrder" computerName="3fbe4321a7f8" duration="00:00:00.6389494" startTime="2026-06-17T08:16:45.7564315+00:00" endTime="2026-06-17T08:16:46.4071437+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="ad0440ab-bb32-46cb-aab0-fc5379f2a09d">
+      <Output>
+        <StdOut>OrderId: 1</StdOut>
+      </Output>
+    </UnitTestResult>
+  </Results>
+  <TestDefinitions>
+    <UnitTest name="Microsoft.eShopWeb.IntegrationTests.Repositories.BasketRepositoryTests.SetQuantities.RemoveEmptyQuantities" storage="/work/tests/integrationtests/bin/release/net10.0/integrationtests.dll" id="2e5697be-fdc0-0e04-a7cf-e2f0096c1f2c">
+      <Execution id="321fa89c-51d1-46c2-90c4-e9d4d0344336" />
+      <TestMethod codeBase="/work/tests/IntegrationTests/bin/Release/net10.0/IntegrationTests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="Microsoft.eShopWeb.IntegrationTests.Repositories.BasketRepositoryTests.SetQuantities" name="RemoveEmptyQuantities" />
+    </UnitTest>
+    <UnitTest name="Microsoft.eShopWeb.IntegrationTests.Repositories.OrderRepositoryTests.GetById.GetsExistingOrder" storage="/work/tests/integrationtests/bin/release/net10.0/integrationtests.dll" id="20131588-092a-8968-560d-8b05cd65a86a">
+      <Execution id="ad0440ab-bb32-46cb-aab0-fc5379f2a09d" />
+      <TestMethod codeBase="/work/tests/IntegrationTests/bin/Release/net10.0/IntegrationTests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="Microsoft.eShopWeb.IntegrationTests.Repositories.OrderRepositoryTests.GetById" name="GetsExistingOrder" />
+    </UnitTest>
+    <UnitTest name="Microsoft.eShopWeb.IntegrationTests.Repositories.OrderRepositoryTests.GetByIdWithItemsAsync.GetOrderAndItemsByOrderIdWhenMultipleOrdersPresent" storage="/work/tests/integrationtests/bin/release/net10.0/integrationtests.dll" id="cfca6b51-d9ae-00e1-98fa-ba314f31388c">
+      <Execution id="bf68c5f7-1175-4c23-91ba-c031721abfec" />
+      <TestMethod codeBase="/work/tests/IntegrationTests/bin/Release/net10.0/IntegrationTests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="Microsoft.eShopWeb.IntegrationTests.Repositories.OrderRepositoryTests.GetByIdWithItemsAsync" name="GetOrderAndItemsByOrderIdWhenMultipleOrdersPresent" />
+    </UnitTest>
+  </TestDefinitions>
+  <TestEntries>
+    <TestEntry testId="2e5697be-fdc0-0e04-a7cf-e2f0096c1f2c" executionId="321fa89c-51d1-46c2-90c4-e9d4d0344336" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="cfca6b51-d9ae-00e1-98fa-ba314f31388c" executionId="bf68c5f7-1175-4c23-91ba-c031721abfec" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="20131588-092a-8968-560d-8b05cd65a86a" executionId="ad0440ab-bb32-46cb-aab0-fc5379f2a09d" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+  </TestEntries>
+  <TestLists>
+    <TestList name="Results Not in a List" id="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestList name="All Loaded Results" id="19431567-8539-422a-85d7-44ee4e166bda" />
+  </TestLists>
+  <ResultSummary outcome="Completed">
+    <Counters total="3" executed="3" passed="3" failed="0" error="0" timeout="0" aborted="0" inconclusive="0" passedButRunAborted="0" notRunnable="0" notExecuted="0" disconnected="0" warning="0" completed="0" inProgress="0" pending="0" />
+    <Output>
+      <StdOut>[xUnit.net 00:00:00.00] xUnit.net VSTest Adapter v3.1.5+1b188a7b0a (64-bit .NET 10.0.9)
+[xUnit.net 00:00:00.21]   Discovering: IntegrationTests
+[xUnit.net 00:00:00.42]   Discovered:  IntegrationTests
+[xUnit.net 00:00:00.62]   Starting:    IntegrationTests
+[xUnit.net 00:00:01.50]   Finished:    IntegrationTests (ID = '62423d5146293b2bce3a408925c3fc905937a2c26aa283f26cd28f698dfc97d5')
+</StdOut>
+    </Output>
+  </ResultSummary>
+</TestRun>

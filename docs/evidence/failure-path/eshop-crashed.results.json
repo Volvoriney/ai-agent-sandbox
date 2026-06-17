@@ -1,0 +1,9 @@
+{
+  "log": "container-logs.txt",
+  "runId": "20260614-010625",
+  "overall": "crashed",
+  "exitCode": 143,
+  "schemaVersion": "1.0",
+  "project": "eshop",
+  "reason": "runner produced no result — container likely crashed/OOM-killed"
+}
