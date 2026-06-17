@@ -1,0 +1,83 @@
+# Medplum composition — isolated sandbox (design D1): PostgreSQL + Redis + Node server
+# on a dedicated internal network. Shares nothing with the eShop composition.
+#
+# The server container idles (sleep infinity); sandbox.sh exec's the runner into it,
+# which builds (cached in the image), starts the server (auto-runs migrations), health-checks
+# /healthcheck, and runs the @medplum/server jest suite.
+
+name: medplum-sandbox
+
+services:
+  postgres:
+    image: postgres:16
+    environment:
+      POSTGRES_USER: medplum                 # also auto-creates the "medplum" database
+      POSTGRES_PASSWORD: medplum
+    volumes:
+      # init_test.sql creates the medplum_test database the server jest suite needs.
+      - ../.upstream/medplum/postgres:/docker-entrypoint-initdb.d:ro
+    # DB port NOT published — internal network only (isolation spec).
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U medplum -d medplum"]
+      interval: 5s
+      timeout: 5s
+      retries: 12
+      start_period: 20s
+    mem_limit: 1g
+    cpus: 2.0
+    networks: [medplum-net]
+    restart: "no"
+
+  redis:
+    image: redis:7
+    command: ["redis-server", "--requirepass", "medplum"]
+    healthcheck:
+      test: ["CMD-SHELL", "redis-cli -a medplum ping | grep -q PONG"]
+      interval: 5s
+      timeout: 5s
+      retries: 12
+      start_period: 5s
+    mem_limit: 512m
+    cpus: 1.0
+    networks: [medplum-net]
+    restart: "no"
+
+  medplum-server:
+    build:
+      context: ../.upstream/medplum
+      dockerfile: ../../docker/medplum/Dockerfile
+    image: medplum-sandbox-base:latest
+    # Persistent workspace: the container idles (image CMD = sleep infinity) so the agent/
+    # harness can exec into it repeatedly — build, test, poke around — across one task.
+    # `run` exec's the validation pipeline in; `exec`/`shell` run arbitrary commands.
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    environment:
+      NODE_ENV: development
+      RUN_ID: "${RUN_ID:-local}"
+    volumes:
+      # Host working copy (a real git checkout), mounted rw — agent edits land here directly.
+      - ../.upstream/medplum:/usr/src/medplum
+      # Anonymous volume preserves the image's pre-installed node_modules under the mount
+      # (the bind-mount would otherwise shadow it → npm ci on every run). npm workspaces hoist
+      # deps to this root node_modules; turbo rebuilds dist on the mounted source.
+      - /usr/src/medplum/node_modules
+      - ./medplum/run-checks.sh:/usr/local/bin/run-checks:ro
+      - ./medplum/medplum.sandbox.config.json:/config/medplum.config.json:ro
+      - ./medplum/medplum.testdb.config.json:/config/medplum.testdb.config.json:ro
+      - ../scripts/lib/results.sh:/usr/local/bin/results.sh:ro
+      - ../results:/results
+    ports:
+      - "127.0.0.1:${MEDPLUM_HTTP_PORT:-8103}:8103"   # API, localhost only
+    mem_limit: 4g                            # Turborepo build + server are memory-hungry
+    cpus: 4.0
+    networks: [medplum-net]
+    restart: "no"
+
+networks:
+  medplum-net:
+    name: medplum-sandbox-net
+    driver: bridge

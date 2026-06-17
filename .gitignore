@@ -1,0 +1,17 @@
+# Upstream project checkouts (cloned by scripts/setup.sh, pinned in scripts/pins.env)
+.upstream/
+
+# Per-run output (each run-id directory is produced at runtime; keep the folder, drop contents)
+results/*
+!results/.gitkeep
+
+# DB snapshots (regenerable cache, never source of truth)
+snapshots/
+
+# OS / editor noise
+*.log
+.DS_Store
+Thumbs.db
+
+# Interview brief — keep out of the public repo
+docs/candidate-brief.pdf
